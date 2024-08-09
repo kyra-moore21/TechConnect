@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using TechConnect.Models.Entities;
 
-namespace TechConnect.Models;
+namespace TechConnect.Models.Context;
 
 public partial class TechconnectdbContext : DbContext
 {

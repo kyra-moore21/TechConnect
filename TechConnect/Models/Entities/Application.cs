@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TechConnect.Models;
+namespace TechConnect.Models.Entities;
 
 public partial class Application
 {

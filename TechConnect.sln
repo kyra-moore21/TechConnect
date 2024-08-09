@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechConnect", "TechConnect\TechConnect.csproj", "{2546621C-16E7-472A-A905-EBCAD775F90C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2546621C-16E7-472A-A905-EBCAD775F90C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2546621C-16E7-472A-A905-EBCAD775F90C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2546621C-16E7-472A-A905-EBCAD775F90C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2546621C-16E7-472A-A905-EBCAD775F90C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AD12EE9-2834-4556-A1CB-D479223B2BF9}
+	EndGlobalSection
+EndGlobal

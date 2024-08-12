@@ -2,6 +2,7 @@
 {
     public class UserProfileDTO
     {
+
         public string? AboutMe { get; set; }
 
         public string? ProfilePicture { get; set; }

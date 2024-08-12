@@ -36,7 +36,9 @@ namespace TechConnect.Services
                 .Select(u => new UserDTO
                 {
                     Email = u.Email,
+             
                     FullName = u.FullName,
+           
 
                 })
                 .FirstOrDefaultAsync();
@@ -49,7 +51,8 @@ namespace TechConnect.Services
             var userRecordArgs = new UserRecordArgs
             {
                 Email = userDto.Email,
-                DisplayName = userDto.FullName
+                DisplayName = userDto.FullName,
+                Password = userDto.Password
             };
             var userRecord = await _firebaseAuth.CreateUserAsync(userRecordArgs);
 

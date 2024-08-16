@@ -24,6 +24,7 @@ builder.Services.AddDbContext<TechconnectdbContext>(options =>
 // Register FirebaseAuthService
 builder.Services.AddScoped<IFirebaseAuthService, FirebaseAuthService>();
 builder.Services.AddScoped<IUser, UserService>();
+builder.Services.AddScoped<IUserProfile, UserProfileService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

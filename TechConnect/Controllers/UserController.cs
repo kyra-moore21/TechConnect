@@ -5,6 +5,7 @@ using TechConnect.Models.Context;
 using TechConnect.Models.DTOs;
 using TechConnect.Services;
 
+
 namespace TechConnect.Controllers
 {
     [Route("api/[controller]")]
@@ -71,7 +72,7 @@ namespace TechConnect.Controllers
         }
 
         [HttpDelete("{email}")]
-
+        //eventually will have to set up that when you delete user it deletes everything associated with it
         public async Task<IActionResult> DeleteUser(string email)
         {
             var result = await _user.DeleteUserAsync(email);

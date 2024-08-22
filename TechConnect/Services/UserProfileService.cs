@@ -69,9 +69,9 @@ namespace TechConnect.Services
 
             return new UserProfileDTO
             {
-                AboutMe = userProfileDTO.AboutMe,
-                ProfilePicture = userProfileDTO.ProfilePicture,
-                SocialLinks = userProfileDTO.SocialLinks
+                AboutMe = u.AboutMe,
+                ProfilePicture = u.ProfilePicture,
+                SocialLinks = u.SocialLinks
             };
  
         }

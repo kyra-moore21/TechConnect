@@ -4,12 +4,12 @@ namespace TechConnect.Interfaces
 {
     public interface IUser
     {
-        Task<List<UserDTO>> GetUsersAsync();
-        Task<UserDTO> GetUserByEmailAsync(string email);
+        Task<List<UserDetailDTO>> GetUsersAsync();
+        Task<UserDetailDTO> GetUserByEmailAsync(string email);
 
-        Task<UserDTO> UpdateUserAsync(UserDTO userDto, string email);
+        Task<UserDetailDTO> UpdateUserAsync(int id, UserDetailDTO userDto);
 
-        Task<UserDTO> CreateUserAsync(UserDTO userDto);
+        Task<UserCreateDTO> CreateUserAsync(UserCreateDTO userDto);
         Task<bool> DeleteUserAsync(string email);
     }
 }

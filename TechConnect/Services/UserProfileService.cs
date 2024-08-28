@@ -16,10 +16,10 @@ namespace TechConnect.Services
             _context = context;
         }
 
-        public async Task<List<UserProfileDTO>> GetAllProfilesAsync()
+        public async Task<List<UserProfileDetailDTO>> GetAllProfilesAsync()
         {
             var profiles = await _context.Userprofiles
-                .Select(u => new UserProfileDTO{
+                .Select(u => new UserProfileDetailDTO{
                     AboutMe = u.AboutMe,
                    ProfilePicture = u.ProfilePicture,
                    SocialLinks = u.SocialLinks,
@@ -28,14 +28,22 @@ namespace TechConnect.Services
             return profiles;
         }
 
-        public async Task<Userprofile> GetUserProfileAsync(int id)
+        public async Task<UserProfileDetailDTO> GetUserProfileAsync(int id)
         {
             var profile = await _context.Userprofiles
                 .Where(u => u.Userid == id).FirstOrDefaultAsync();
-            return profile;
+            UserProfileDetailDTO profileDTO = new UserProfileDetailDTO
+            {
+                Id = profile.Userid,
+                AboutMe = profile.AboutMe,
+                ProfilePicture = profile.ProfilePicture,
+                SocialLinks = profile.SocialLinks,
+
+            };
+            return profileDTO;
         }
 
-        public async Task<UserProfileDTO> CreateUserProfileAsync(UserProfileDTO upDTO)
+        public async Task<UserProfileCreateDTO> CreateUserProfileAsync(UserProfileCreateDTO upDTO)
         {
             var profile = new Userprofile
             {
@@ -45,7 +53,7 @@ namespace TechConnect.Services
             };
             _context.Userprofiles.Add(profile);
             await _context.SaveChangesAsync();
-            return new UserProfileDTO
+            return new UserProfileCreateDTO
             {
                 AboutMe = profile.AboutMe,
                 ProfilePicture = profile.ProfilePicture,
@@ -54,7 +62,7 @@ namespace TechConnect.Services
 
         }
 
-        public async Task<UserProfileDTO> UpdateUserProfileAsync(int id, UserProfileDTO userProfileDTO)
+        public async Task<UserProfileDetailDTO> UpdateUserProfileAsync(int id, UserProfileDetailDTO userProfileDTO)
         {
             Userprofile u = await _context.Userprofiles.FindAsync(id);
             if(u == null)
@@ -67,7 +75,7 @@ namespace TechConnect.Services
 
             await _context.SaveChangesAsync();
 
-            return new UserProfileDTO
+            return new UserProfileDetailDTO
             {
                 AboutMe = u.AboutMe,
                 ProfilePicture = u.ProfilePicture,

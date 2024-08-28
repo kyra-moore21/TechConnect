@@ -5,12 +5,12 @@ namespace TechConnect.Interfaces
 {
     public interface IUserProfile
     {
-        Task<List<UserProfileDTO>> GetAllProfilesAsync();
-        Task<Userprofile> GetUserProfileAsync(int id);
+        Task<List<UserProfileDetailDTO>> GetAllProfilesAsync();
+        Task<UserProfileDetailDTO> GetUserProfileAsync(int id);
 
-        Task<UserProfileDTO> CreateUserProfileAsync(UserProfileDTO upDTO);
+        Task<UserProfileCreateDTO> CreateUserProfileAsync(UserProfileCreateDTO upDTO);
 
-        Task<UserProfileDTO> UpdateUserProfileAsync(int id, UserProfileDTO userProfileDTO);
+        Task<UserProfileDetailDTO> UpdateUserProfileAsync(int id, UserProfileDetailDTO userProfileDTO);
         Task<bool> DeleteUserProfileAsync(int id);
     }
 }

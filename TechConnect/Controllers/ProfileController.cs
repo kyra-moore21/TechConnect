@@ -29,7 +29,7 @@ namespace TechConnect.Controllers
 
         public async Task<IActionResult> GetUserprofileAsync(int id)
         {
-            Userprofile profile = await _profile.GetUserProfileAsync(id);
+            var profile = await _profile.GetUserProfileAsync(id);
             if (profile == null)
             {
                 return NotFound("User not found.");
@@ -38,7 +38,7 @@ namespace TechConnect.Controllers
         }
 
         [HttpPost()]
-        public async Task<IActionResult> CreateUserProfile(UserProfileDTO upDTO)
+        public async Task<IActionResult> CreateUserProfile(UserProfileCreateDTO upDTO)
         {
             if (upDTO == null)
             {
@@ -50,7 +50,7 @@ namespace TechConnect.Controllers
         }
 
         [HttpPut()]
-        public async Task<IActionResult> UpdateProfile(int id, UserProfileDTO upDTO)
+        public async Task<IActionResult> UpdateProfile(int id, UserProfileDetailDTO upDTO)
         {
 
             if (upDTO == null)

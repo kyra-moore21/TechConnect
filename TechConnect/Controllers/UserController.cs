@@ -40,7 +40,7 @@ namespace TechConnect.Controllers
 
         [HttpPost()]
 
-        public async Task<IActionResult> CreateUser([FromBody] UserDTO userDto)
+        public async Task<IActionResult> CreateUser([FromBody] UserCreateDTO userDto)
         {
             if (userDto == null || string.IsNullOrEmpty(userDto.Email) || string.IsNullOrEmpty(userDto.FullName))
             {
@@ -56,13 +56,13 @@ namespace TechConnect.Controllers
 
         [HttpPut()]
 
-        public async Task<IActionResult> UpdateUser(UserDTO userDto, string email)
+        public async Task<IActionResult> UpdateUser(int id, UserDetailDTO userDto)
         {
-            if(userDto == null || string.IsNullOrEmpty(email))
+            if(userDto == null || id == null)
             {
                 return BadRequest("Invalid user data");
             }
-            var updatedUser = await _user.UpdateUserAsync(userDto, email);
+            var updatedUser = await _user.UpdateUserAsync(id, userDto);
             if(updatedUser == null)
             {
                 return NotFound("User not found");
@@ -73,6 +73,7 @@ namespace TechConnect.Controllers
 
         [HttpDelete("{email}")]
         //eventually will have to set up that when you delete user it deletes everything associated with it
+        //or set to inactive profile but resets everything to default?? more research to be done
         public async Task<IActionResult> DeleteUser(string email)
         {
             var result = await _user.DeleteUserAsync(email);

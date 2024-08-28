@@ -15,24 +15,31 @@ namespace TechConnect.Services
             _context = context;
         }
 
-        public async Task<List<ApplicationDTO>> GetApplicationsAsync()
+        public async Task<List<ApplicationDetailDTO>> GetApplicationsAsync()
         {
             var apps = await _context.Applications
-                .Select(a => new ApplicationDTO
+                .Select(a => new ApplicationDetailDTO
                 {
                     Id = a.Id,
                     Message = a.Message,
                     Status = a.Status,
+                    User = new UserDetailDTO
+                    {
+                        Id = a.User.Id,
+                        Email = a.User.Email,
+                        FullName = a.User.Email,
+
+                    },
                 })
                 .ToListAsync();
             return apps;
         }
-        public async Task<ApplicationDTO> GetApplicationByIdAsync(int id)
+        public async Task<ApplicationDetailDTO> GetApplicationByIdAsync(int id)
         {
             var app = await _context.Applications
                 .Where(u => u.Id == id).FirstOrDefaultAsync();
 
-            ApplicationDTO appDTO = new ApplicationDTO
+            ApplicationDetailDTO appDTO = new ApplicationDetailDTO
             {
                 Id = app.Id,
                 Message = app.Message,
@@ -40,7 +47,7 @@ namespace TechConnect.Services
             };
             return appDTO;
         }
-        public async Task<ApplicationDTO> CreateApplicationAsync(CreateApplicationDTO createApplicationDTO)
+        public async Task<ApplicationCreateDTO> CreateApplicationAsync(ApplicationCreateDTO createApplicationDTO)
         {
             var application = new Application
             {
@@ -49,14 +56,15 @@ namespace TechConnect.Services
             };
             _context.Applications.Add(application);
             await _context.SaveChangesAsync();
-            return new ApplicationDTO
+            return new ApplicationCreateDTO     
             {
-                Id = application.Id,
+               
                 Message = application.Message,
                 Status = application.Status,
+              
             };
         }
-        public async Task<ApplicationDTO> UpdateApplicationAsync(int id, ApplicationDTO applicationDTO)
+        public async Task<ApplicationDetailDTO> UpdateApplicationAsync(int id, ApplicationDetailDTO applicationDTO)
         {
             Application u = await _context.Applications.FindAsync(id);
             if(u == null)
@@ -68,7 +76,7 @@ namespace TechConnect.Services
             await _context.SaveChangesAsync();
 
 
-            return new ApplicationDTO
+            return new ApplicationDetailDTO
             {
                 Id =  u.Id,
                 Message = u.Message,

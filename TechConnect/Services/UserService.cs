@@ -17,24 +17,27 @@ namespace TechConnect.Services
             _context = context;
             _firebaseAuth = FirebaseAuth.DefaultInstance;
         }
-        public async Task<List<UserDTO>> GetUsersAsync()
+        public async Task<List<UserDetailDTO>> GetUsersAsync()
         {
             var users = await _context.Users
-                .Select (u => new UserDTO
+                .Select (u => new UserDetailDTO
                 {
+                    Id = u.Id,
                     Email = u.Email,
                     FullName = u.FullName,
+
                 })
                 .ToListAsync();
             return users;
         }
 
-        public async Task<UserDTO> GetUserByEmailAsync(string email)
+        public async Task<UserDetailDTO> GetUserByEmailAsync(string email)
         {
             var user = await _context.Users
                 .Where(u => u.Email == email)
-                .Select(u => new UserDTO
+                .Select(u => new UserDetailDTO
                 {
+                    Id = u.Id,
                     Email = u.Email,
              
                     FullName = u.FullName,
@@ -46,7 +49,7 @@ namespace TechConnect.Services
                  
         }
 
-        public async Task<UserDTO> CreateUserAsync(UserDTO userDto)
+        public async Task<UserCreateDTO> CreateUserAsync(UserCreateDTO userDto)
         {
             var userRecordArgs = new UserRecordArgs
             {
@@ -68,15 +71,15 @@ namespace TechConnect.Services
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            return new UserDTO
+            return new UserCreateDTO
             {
                 Email = user.Email,
                 FullName = user.FullName,
             };
         }
-        public async Task<UserDTO> UpdateUserAsync(UserDTO userDto, string email)
+        public async Task<UserDetailDTO> UpdateUserAsync(int id, UserDetailDTO userDto)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
             if (user == null)
             {
                 return null; 
@@ -94,7 +97,7 @@ namespace TechConnect.Services
 
             await _context.SaveChangesAsync();
 
-            return new UserDTO
+            return new UserDetailDTO
             {
                 Email = user.Email,
                 FullName = user.FullName,

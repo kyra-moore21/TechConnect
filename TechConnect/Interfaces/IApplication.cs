@@ -4,10 +4,10 @@ namespace TechConnect.Interfaces
 {
     public interface IApplication
     {
-        Task<List<ApplicationDTO>> GetApplicationsAsync();
-        Task<ApplicationDTO> GetApplicationByIdAsync(int id);
-        Task<ApplicationDTO> CreateApplicationAsync(CreateApplicationDTO createApplicationDTO);
-        Task<ApplicationDTO> UpdateApplicationAsync(int id, ApplicationDTO applicationDTO);
+        Task<List<ApplicationDetailDTO>> GetApplicationsAsync();
+        Task<ApplicationDetailDTO> GetApplicationByIdAsync(int id);
+        Task<ApplicationCreateDTO> CreateApplicationAsync(ApplicationCreateDTO createApplicationDTO);
+        Task<ApplicationDetailDTO> UpdateApplicationAsync(int id, ApplicationDetailDTO applicationDTO);
         Task<bool> DeleteApplicationAsync(int id);
     }
 }

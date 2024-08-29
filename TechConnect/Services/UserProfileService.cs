@@ -16,18 +16,21 @@ namespace TechConnect.Services
             _context = context;
         }
 
+        public List<string> SocialLinks { get; set; }
+
         public async Task<List<UserProfileDetailDTO>> GetAllProfilesAsync()
         {
             var profiles = await _context.Userprofiles
-                .Select(u => new UserProfileDetailDTO{
+                .Select(u => new UserProfileDetailDTO
+                {
                     AboutMe = u.AboutMe,
-                   ProfilePicture = u.ProfilePicture,
-                   SocialLinks = u.SocialLinks,
-            })
+                    ProfilePicture = u.ProfilePicture,
+                })
                 .ToListAsync();
             return profiles;
         }
 
+        //start here by adding skills when creating a user profile
         public async Task<UserProfileDetailDTO> GetUserProfileAsync(int id)
         {
             var profile = await _context.Userprofiles
@@ -37,11 +40,12 @@ namespace TechConnect.Services
                 Id = profile.Userid,
                 AboutMe = profile.AboutMe,
                 ProfilePicture = profile.ProfilePicture,
-                SocialLinks = profile.SocialLinks,
+             
 
             };
             return profileDTO;
         }
+
 
         public async Task<UserProfileCreateDTO> CreateUserProfileAsync(UserProfileCreateDTO upDTO)
         {
@@ -49,7 +53,7 @@ namespace TechConnect.Services
             {
                 AboutMe = upDTO.AboutMe,
                 ProfilePicture = upDTO.ProfilePicture,
-                SocialLinks = upDTO.SocialLinks,
+              
             };
             _context.Userprofiles.Add(profile);
             await _context.SaveChangesAsync();
@@ -57,7 +61,7 @@ namespace TechConnect.Services
             {
                 AboutMe = profile.AboutMe,
                 ProfilePicture = profile.ProfilePicture,
-                SocialLinks = profile.SocialLinks,
+              
             };
 
         }
@@ -71,7 +75,7 @@ namespace TechConnect.Services
             }
             u.AboutMe = userProfileDTO.AboutMe;
             u.ProfilePicture = userProfileDTO.ProfilePicture;
-            u.SocialLinks = userProfileDTO.SocialLinks;
+        
 
             await _context.SaveChangesAsync();
 
@@ -79,7 +83,7 @@ namespace TechConnect.Services
             {
                 AboutMe = u.AboutMe,
                 ProfilePicture = u.ProfilePicture,
-                SocialLinks = u.SocialLinks
+            
             };
  
         }

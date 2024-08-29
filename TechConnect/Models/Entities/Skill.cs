@@ -11,5 +11,5 @@ public partial class Skill
 
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
+    public virtual ICollection<Userprofile> Userprofiles { get; set; } = new List<Userprofile>();
 }

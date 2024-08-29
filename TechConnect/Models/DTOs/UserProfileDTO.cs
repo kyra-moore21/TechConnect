@@ -7,7 +7,10 @@
 
         public string? ProfilePicture { get; set; }
 
-        public List<string> SocialLinks { get; set; }
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime UpdatedAt { get; set; }
+       
     }
 
     public class UserProfileCreateDTO
@@ -16,6 +19,7 @@
 
         public string? ProfilePicture { get; set; }
 
-        public List<string> SocialLinks { get; set; }
+
+        
     }
 }

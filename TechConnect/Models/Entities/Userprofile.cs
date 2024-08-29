@@ -11,11 +11,15 @@ public partial class Userprofile
 
     public string? ProfilePicture { get; set; }
 
-    public List<string> SocialLinks { get; set; }
+
 
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
 
+    public virtual ICollection<SocialLink> SocialLinksNavigation { get; set; } = new List<SocialLink>();
+
     public virtual User User { get; set; } = null!;
+
+    public virtual ICollection<Skill> Skills { get; set; } = new List<Skill>();
 }

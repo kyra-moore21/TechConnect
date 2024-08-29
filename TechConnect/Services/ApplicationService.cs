@@ -23,6 +23,7 @@ namespace TechConnect.Services
                     Id = a.Id,
                     Message = a.Message,
                     Status = a.Status,
+                    AppDate = a.AppDate,
                     User = new UserDetailDTO
                     {
                         Id = a.User.Id,
@@ -44,6 +45,14 @@ namespace TechConnect.Services
                 Id = app.Id,
                 Message = app.Message,
                 Status = app.Status,
+                AppDate = app.AppDate,
+                User = new UserDetailDTO
+                {
+                    Id = app.User.Id,
+                    Email = app.User.Email,
+                    FullName = app.User.Email,
+
+                }
             };
             return appDTO;
         }
@@ -51,6 +60,9 @@ namespace TechConnect.Services
         {
             var application = new Application
             {
+
+                UserId = createApplicationDTO.UserId,
+                PostId = createApplicationDTO.PostId,
                 Message = createApplicationDTO.Message,
                 Status = createApplicationDTO.Status,
             };
@@ -58,7 +70,8 @@ namespace TechConnect.Services
             await _context.SaveChangesAsync();
             return new ApplicationCreateDTO     
             {
-               
+               UserId = application.UserId,
+               PostId = application.PostId,
                 Message = application.Message,
                 Status = application.Status,
               
@@ -77,11 +90,11 @@ namespace TechConnect.Services
 
 
             return new ApplicationDetailDTO
-            {
-                Id =  u.Id,
+            {Id = u.Id,
                 Message = u.Message,
                 Status = u.Status,
-
+                AppDate = u.AppDate,
+                User = new UserDetailDTO { Id = u.User.Id, Email = u.User.Email, FullName = u.User.Email }
             };
 
         }

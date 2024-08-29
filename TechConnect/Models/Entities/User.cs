@@ -24,6 +24,4 @@ public partial class User
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 
     public virtual Userprofile? Userprofile { get; set; }
-
-    public virtual ICollection<Skill> Skills { get; set; } = new List<Skill>();
 }

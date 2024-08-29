@@ -10,7 +10,9 @@
     }
     public class ApplicationCreateDTO
     {
-      
+         public int PostId { get; set; }   
+
+        public int UserId { get; set; }
         public string? Message { get; set; }
         public string Status { get; set; } 
     }

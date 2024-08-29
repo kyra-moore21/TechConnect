@@ -11,7 +11,7 @@ public partial class Userprofile
 
     public string? ProfilePicture { get; set; }
 
-
+    public string? SocialLinks { get; set; }
 
     public DateTime CreatedAt { get; set; }
 

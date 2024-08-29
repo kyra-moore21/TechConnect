@@ -4,7 +4,7 @@ using TechConnect.Models.Context;
 using TechConnect.Models.DTOs;
 using TechConnect.Models.Entities;
 namespace TechConnect.Services
-  
+
 {
     public class ApplicationService : IApplication
     {
@@ -15,6 +15,9 @@ namespace TechConnect.Services
             _context = context;
         }
 
+        //TBD get applications by post so you can view applications for  post
+        //get applications by userid so you can view your own
+        //pagination for applications
         public async Task<List<ApplicationDetailDTO>> GetApplicationsAsync()
         {
             var apps = await _context.Applications
@@ -68,19 +71,19 @@ namespace TechConnect.Services
             };
             _context.Applications.Add(application);
             await _context.SaveChangesAsync();
-            return new ApplicationCreateDTO     
+            return new ApplicationCreateDTO
             {
-               UserId = application.UserId,
-               PostId = application.PostId,
+                UserId = application.UserId,
+                PostId = application.PostId,
                 Message = application.Message,
                 Status = application.Status,
-              
+
             };
         }
         public async Task<ApplicationDetailDTO> UpdateApplicationAsync(int id, ApplicationDetailDTO applicationDTO)
         {
             Application u = await _context.Applications.FindAsync(id);
-            if(u == null)
+            if (u == null)
             {
                 return null;
             }
@@ -90,7 +93,8 @@ namespace TechConnect.Services
 
 
             return new ApplicationDetailDTO
-            {Id = u.Id,
+            {
+                Id = u.Id,
                 Message = u.Message,
                 Status = u.Status,
                 AppDate = u.AppDate,
@@ -102,7 +106,7 @@ namespace TechConnect.Services
         public async Task<bool> DeleteApplicationAsync(int id)
         {
             var app = await _context.Applications.FindAsync(id);
-            if(app != null)
+            if (app != null)
             {
                 _context.Applications.Remove(app);
                 await _context.SaveChangesAsync();

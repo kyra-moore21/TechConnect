@@ -22,6 +22,10 @@ public partial class TechconnectdbContext : DbContext
 
     public virtual DbSet<Skill> Skills { get; set; }
 
+    public virtual DbSet<SocialLink> SocialLinks { get; set; }
+
+    public virtual DbSet<SocialMediaType> SocialMediaTypes { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<Userprofile> Userprofiles { get; set; }
@@ -105,6 +109,33 @@ public partial class TechconnectdbContext : DbContext
             entity.Property(e => e.SkillName).HasMaxLength(255);
         });
 
+        modelBuilder.Entity<SocialLink>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__SocialLi__3214EC070C75B7DE");
+
+            entity.Property(e => e.Link).HasMaxLength(255);
+
+            entity.HasOne(d => d.SocialMediaType).WithMany(p => p.SocialLinks)
+                .HasForeignKey(d => d.SocialMediaTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__SocialLin__Socia__09A971A2");
+
+            entity.HasOne(d => d.UserProfile).WithMany(p => p.SocialLinksNavigation)
+                .HasForeignKey(d => d.UserProfileId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__SocialLin__UserP__08B54D69");
+        });
+
+        modelBuilder.Entity<SocialMediaType>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__SocialMe__3214EC07478C43CC");
+
+            entity.HasIndex(e => e.Type, "UQ__SocialMe__F9B8A48B697B34D4").IsUnique();
+
+            entity.Property(e => e.ImageUrl).HasMaxLength(255);
+            entity.Property(e => e.Type).HasMaxLength(100);
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__USERS__3214EC27807E30F9");
@@ -120,25 +151,6 @@ public partial class TechconnectdbContext : DbContext
                 .HasColumnName("FirebaseID");
             entity.Property(e => e.FullName).HasMaxLength(255);
             entity.Property(e => e.Status).HasMaxLength(255);
-
-            entity.HasMany(d => d.Skills).WithMany(p => p.Users)
-                .UsingEntity<Dictionary<string, object>>(
-                    "Userskill",
-                    r => r.HasOne<Skill>().WithMany()
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__USERSKILL__Skill__5812160E"),
-                    l => l.HasOne<User>().WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__USERSKILL__UserI__571DF1D5"),
-                    j =>
-                    {
-                        j.HasKey("UserId", "SkillId").HasName("PK__USERSKIL__7A72C5B2013DF015");
-                        j.ToTable("USERSKILLS");
-                        j.IndexerProperty<int>("UserId").HasColumnName("UserID");
-                        j.IndexerProperty<int>("SkillId").HasColumnName("SkillID");
-                    });
         });
 
         modelBuilder.Entity<Userprofile>(entity =>
@@ -158,6 +170,25 @@ public partial class TechconnectdbContext : DbContext
                 .HasForeignKey<Userprofile>(d => d.Userid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__USERPROFI__USERI__68487DD7");
+
+            entity.HasMany(d => d.Skills).WithMany(p => p.Users)
+                .UsingEntity<Dictionary<string, object>>(
+                    "Userskill",
+                    r => r.HasOne<Skill>().WithMany()
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__USERSKILL__Skill__18EBB532"),
+                    l => l.HasOne<Userprofile>().WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__USERSKILL__UserI__17F790F9"),
+                    j =>
+                    {
+                        j.HasKey("UserId", "SkillId").HasName("PK__USERSKIL__7A72C5B29292B878");
+                        j.ToTable("USERSKILLS");
+                        j.IndexerProperty<int>("UserId").HasColumnName("UserID");
+                        j.IndexerProperty<int>("SkillId").HasColumnName("SkillID");
+                    });
         });
 
         OnModelCreatingPartial(modelBuilder);
